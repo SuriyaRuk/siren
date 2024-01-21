@@ -17,17 +17,6 @@ ENV NODE_ENV=production
 # build (prod) app
 RUN yarn build
 
-FROM golang:1.21.6-alpine As build-stage
-WORKDIR /app
-COPY transferQuery/go.mod transferQuery/go.sum ./
-RUN go mod download
-COPY transferQuery/main.go ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o /transfer-query
-
 FROM nginx:alpine AS production
-WORKDIR /
-COPY --from=build-stage /transfer-query /transfer-query
-EXPOSE 8080
-CMD ["/transfer-query"]
 COPY --from=builder /app/build/ /usr/share/nginx/html/
 

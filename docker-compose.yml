@@ -1,11 +1,17 @@
 version: '3'
 services:
   siren:
-    #image: suriya1305/siren:1.0.0
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - 3000:80
+    restart: always
+
+  transfer_api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.transferQuery
+    ports:
       - 8080:8080
     restart: always
