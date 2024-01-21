@@ -22,9 +22,11 @@ const useValidatorInfoPolling = (options?: PollingOptions) => {
     key: 'validatorInfo',
     time,
     isReady: !!validatorIdString && isReady,
-    url: validatorInfoUrl,
-    params: {
+    url: 'http://127.0.0.1:8080/api',
+    method: 'post',
+    payload: {
       id: validatorIdString,
+      url: validatorInfoUrl,
     },
   })
 
